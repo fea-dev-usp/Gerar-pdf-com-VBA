@@ -1,0 +1,27 @@
+Sub gerar_PDFs()
+On Error GoTo ErrorHandler
+
+Dim path As String
+Dim filename As String
+
+For Each aba In Sheets(Array("Pag. 2 - PL por Classe", "Pag. 4 - PL por Estrut."))
+    
+    With aba
+
+        path = .Range("P3")
+        filename = .Range("P4")
+
+        .ExportAsFixedFormat Type:=xlTypePDF, filename:=path & filename, Quality:= _
+            xlQualityStandard, IncludeDocProperties:=True, IgnorePrintAreas:=False, _
+            OpenAfterPublish:=True
+    End With
+Next
+
+MsgBox "PDF criado com sucesso!"
+
+Exit Sub
+    
+ErrorHandler:
+    MsgBox "Não foi possível gerar o arquivo. Verifique se o nome do arquivo, caminho e formato estão corretos."
+    
+End Sub
