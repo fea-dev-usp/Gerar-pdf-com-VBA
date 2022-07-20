@@ -1,0 +1,22 @@
+Sub gerar_PDF()     'nome da sub
+On Error GoTo ErrorHandler  'caso dê um erro durante a execução, vá para a linha do ErrorHandler
+
+Dim path As String   'declarando o tipo da variável ‘path’ como uma string.
+Dim filename As String  'declarando o tipo da variável ‘filename’ como uma string.
+
+With Worksheets("Pag. 2 - PL por Classe")  'com a aba "Pag. 2 - PL por Classe", performe os passos abaixo
+
+    path = .Range("P3") 'associa o caminho indicado na célula P3 à variável ‘path’
+    filename = .Range("P4") 'associa o nome indicado na célula P4 à variável ‘filename’
+
+    .ExportAsFixedFormat Type:=xlTypePDF, filename:=path & filename, Quality:= _
+        xlQualityStandard, IncludeDocProperties:=True, IgnorePrintAreas:=False, _
+        OpenAfterPublish:=True 'exporta como PDF
+
+End With
+Exit Sub
+
+ErrorHandler: 'caso dê erro durante a execução, a seguinte mensagem aparecerá
+    MsgBox "Não foi possível gerar o arquivo. Verifique se o nome do arquivo, caminho e formato estão corretos."
+
+End Sub 'fim da sub
